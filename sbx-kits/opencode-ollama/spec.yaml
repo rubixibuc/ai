@@ -1,0 +1,29 @@
+schemaVersion: "1"
+kind: agent
+name: opencode-ollama
+displayName: OpenCode (Ollama)
+description: OpenCode wired directly to a local Ollama instance running DeepSeek.
+
+agent:
+  image: "docker/sandbox-templates:opencode"
+  aiFilename: OPENCODE.md
+  entrypoint:
+    run:
+      - sh
+      - -c
+      - |
+        OPENCODE_CONFIG_CONTENT='{"$schema":"https://opencode.ai/config.json","model":"ollama/deepseek-v4-pro:cloud","provider":{"ollama":{"npm":"@ai-sdk/openai-compatible","name":"Ollama Local","options":{"baseURL":"http://host.docker.internal:11434/v1"},"models":{"deepseek-v4-pro:cloud":{}}}}}' \
+        opencode --model ollama/deepseek-v4-pro:cloud
+
+settings:
+  containerSettings:
+    opencode: true
+
+network:
+  allowedDomains:
+    - "host.docker.internal:11434"
+
+memory: |
+  ## Sandbox environment
+  You are running inside a Docker sandbox. All API calls are routed to a local Ollama instance on the host via OpenCode's native runtime.
+  The workspace is mounted at its absolute host path. `sudo` is passwordless; use it for package installs.
