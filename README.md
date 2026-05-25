@@ -1,4 +1,4 @@
-# collection of ai knowledge
+# a collection of ai knowledge (wip)
 
 Quick basic ai simulation (pre-LLM)
 
