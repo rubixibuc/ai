@@ -1,4 +1,4 @@
-# Exmaple Docker Sandbox Kits
+# Example Docker Sandbox Kits
 
 ## Resources:
 - [https://docs.docker.com/ai/sandboxes/get-started/](https://docs.docker.com/ai/sandboxes/get-started/)
