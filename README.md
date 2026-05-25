@@ -1,1 +1,1 @@
-# ai
+# collection of ai knowledge
