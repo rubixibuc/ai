@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    // Block everything first, then whitelist only what's safe.
+    "deny": [
+      // Prevent Claude from writing any file using its built-in tools
+      // (until we override it later for the project root).
+      "Write",
+
+      // Block all shell commands by default.
+      // Even read-only ones are denied unless explicitly allowed below.
+      "Bash(*)"
+    ],
+    "allow": [
+      // --- FILE WRITES ---
+      // Allow Claude to create/edit/delete files
+      // only inside the current working directory (./) and its subfolders.
+      "Write(./**)",
+
+      // --- SAFE READ-ONLY SHELL COMMANDS ---
+      // These commands only read from the system or files – they never write.
+
+      "Bash(ls:*)",          // list directory contents
+      "Bash(cat:*)",         // print file contents
+      "Bash(head:*)",        // show first lines of a file
+      "Bash(tail:*)",        // show last lines of a file
+      "Bash(wc:*)",          // count lines/words/bytes
+      "Bash(file:*)",        // determine file type
+      "Bash(stat:*)",        // display file or filesystem status
+      "Bash(find:*)",        // search for files in a directory hierarchy (read-only, but use caution with -exec)
+      "Bash(grep:*)",        // search text patterns
+      "Bash(du:*)",          // estimate file space usage
+      "Bash(df:*)",          // report file system disk space usage
+      "Bash(pwd:*)",         // print working directory
+      "Bash(which:*)",       // locate a command (shows path, doesn't execute)
+      "Bash(command -v:*)",  // shell built-in: check if a command exists (read-only)
+      "Bash(type:*)",        // shell built-in: describe how a command would be interpreted (read-only)
+
+      // --- THE ONLY ALLOWED GIT COMMAND ---
+      // git log is strictly read-only – it never modifies the repository.
+      "Bash(git log:*)"
+    ]
+  }
+}
