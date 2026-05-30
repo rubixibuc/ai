@@ -1,10 +1,5 @@
 {
-  // ── APPEARANCE ────────────────────────────────────────────
-  // UI color scheme (dark terminal-friendly theme)
   "theme": "dark-ansi",
-
-  // ── HOOKS ────────────────────────────────────────────────
-  // Sound notification when Claude finishes a task
   "hooks": {
     "Stop": [
       {
@@ -17,44 +12,25 @@
       }
     ]
   },
-
-  // ── PERMISSIONS ─────────────────────────────────────────
   "permissions": {
-    // Auto-apply file edits that are allowed (no confirmation prompts)
     "defaultMode": "acceptEdits",
-
-    // DENY: start by blocking everything, then selectively open doors
     "deny": [
-      "Write",    // 🔒 Block all file writes anywhere (Claude’s own editor)
-      "Read",     // 🔒 Block all file reads anywhere (will be opened only inside project)
-      "Bash(*)"   // 🔒 Block every shell command by default
+      "Write",
+      "Read",
+      "Bash(*)"
     ],
-
-    // ALLOW: open only the minimum needed
     "allow": [
-      // ✅ File writes inside the current project folder only
       "Write(./**)",
-
-      // ✅ Full file reads inside the current project folder (auto‑approved, no prompts)
       "Read(./**)",
-
-      // ✅ Safe read‑only shell commands
-      "Bash(ls:*)",      // list directory contents
-      "Bash(cat:*)",     // print file contents
-      "Bash(grep:*)",    // search inside files
-      "Bash(pwd:*)",     // show current directory path
-
-      // ✅ The only Git command allowed — strictly read‑only
-      "Bash(git log:*)"  // view commit history (no modification possible)
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(pwd:*)",
+      "Bash(git log:*)"
     ]
   },
-
-  // ── SANDBOX ─────────────────────────────────────────────
   "sandbox": {
-    // Confine Bash commands to the project directory
     "enabled": true,
-
-    // Automatically run whitelisted Bash commands without asking
     "autoAllowBashIfSandboxed": true
   }
 }
